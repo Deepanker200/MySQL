@@ -136,7 +136,9 @@ Note: system cls: For clearing the cmd
 
     - select * from employees order by name desc;
 
-     select desig,name from employees order by desig,name;
+    - select desig,name from employees order by desig,name;
+    //1. First sorted by desig
+    //2. If multiple rows have the same desig, then they are sorted by name
 
 # Like Keyword
     select * from employees
@@ -157,13 +159,16 @@ Note: system cls: For clearing the cmd
      Q. Last name 'u'
      select * from employees where name like "%u";
 
+     Q. Atleast 4 chars '____'
+     select * from employees where name like "%____%";
+
     Q. Imp: Having name from R and S
         select * from employees where name like "R%" or name like "S%";
 
 # Limit
-     select * from employees LIMIT 3;   //1st 3 employees
+    select * from employees LIMIT 3;   //1st 3 employees
 
-      select * from employees LIMIT 3,2;    //From 4 ownwards range
+    select * from employees LIMIT 3,2;    //From 4 ownwards range
 
 Q. For getting the maximum salary employee
     select * from employees 
@@ -181,14 +186,17 @@ Q. For getting the maximum salary employee
       where desig="Manager";
 
 
-# Group By: It fetchs unique value from the table
+# Group By: Is used to group rows that have the same values in specified columns so that aggregate functions can be applied to each group.
 
     select dept from employees group by dept;
 
     - With Count
         select desig, count(name) from employees group by desig;
 
-    Note: Group by should contain column from select list(Only aggregate function will run)
+    Note: 1. Group by should contain column from select list(Only aggregate function will run)
+          2.Not necessary that it will have aggregate functions always  
+
+# Aggregate Functions:
 
 # Max and Min
     select max(salary) from employees;
@@ -258,7 +266,7 @@ Q. For getting the maximum salary employee
     select second('10:05:03');
 
 
-# Date Format()
+# Date Format(): Go through documentation for more date_format
 
     select Date_Format(Now(),'%d/%m/%y');
     
@@ -280,12 +288,23 @@ Q. For getting the maximum salary employee
     create table blogs(
      blog varchar(150),
      ct DateTime default current_timestamp,
-     ut datetime default current_timestamp
+     ut datetime default current_timestamp on update current_timestamp
      );
 
-      update blogs set blog="This is my personal blog";
+    or
 
-      Note: It will update all blogs
+    CREATE TABLE posts (
+     id INT PRIMARY KEY,
+     title VARCHAR(100),
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+     );
+
+    -> Using TimeStamp we can do this too
+
+    
+    update blogs set blog="This is my personal blog";
+
+    Note: It will update all blogs
 
 # Relational Operators
     - <, >, <=, =>, =, !=
@@ -316,6 +335,7 @@ Q. For getting the maximum salary employee
 
     - In clean way
         select * from employees where salary between 40000 and 65000;
+        (40000 and 65000 both included)
 
 # CASE Statements
     1. select name,salary,
@@ -385,7 +405,7 @@ Q.  Salary in Dollars
     alter table contact
     rename to mycontact;
  
- -> How to add/modify column name (also how to add default values to a column)
+ -> How to modify column name (also how to add default values to a column)
     alter table mycontact
     modify column mobile_no varchar(20) default "Unknown";
     or
@@ -395,10 +415,10 @@ Q.  Salary in Dollars
 # MySQL Relationships
 
     1. One to One (Employee to Employee Details)
-    2. One to Many (Employee to Employee Task )
+    2. One to Many (Employee to Employee Tasks )
     3. Many to Many (Authors to Books and Books to Authors)
 
-# One to Many Relation
+# One to Many Relation (Stores Database)
     1. Creating 1st table
     create table customers(
      cust_id INT Auto_Increment Primary key,
@@ -494,7 +514,7 @@ Q.  Salary in Dollars
      on books.au_id=authors.author_id;
 
 
-# Many To Many Relationship
+# Many To Many Relationship (Institute Database)
 
     Table 1:
     create table students(
@@ -569,7 +589,9 @@ Q.  Salary in Dollars
     - drop view inst_info;
 
 
-# Having Clause: Where clause does'nt work with group by clause so we have to use Having clause
+# Having Clause: Where clause doesn't work with aggregate function so we have to use Having clause
+    - Having is after grouping
+    - Where is before grouping
 
     select student_name,sum(fees) from inst_info
      group by student_name having sum(fees)>10000;
@@ -702,3 +724,6 @@ Q.  Salary in Dollars
     -> Lag(): Lag(salary)- For differences of next salary  , Like cummulative freq
 
     -> Lead(): Lead(salary), Like cummulative freq
+
+
+# Left commands: Rollback, Truncate, Count(*)
