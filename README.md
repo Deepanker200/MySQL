@@ -483,6 +483,10 @@ Q.  Salary in Dollars
 
     select * from orders right join customers on customers.cust_id=orders.cust_id;
 
+
+    Note: Right join and left join only affects the rows and not in selecting the columns if i use * in right table using left join then it will work and vice versa
+
+
 # Delete on Cascade
  -  ALTER TABLE orders
     MODIFY COLUMN cust_id INT,
@@ -547,7 +551,7 @@ Q.  Salary in Dollars
      courses on student_course.course_id=courses.id;
 
 
-    Q. Count No of Students
+    Q. Count No of Students in each course
      SELECT course_name, COUNT(student_id)
     -> FROM students
     -> JOIN student_course
@@ -563,6 +567,7 @@ Q.  Salary in Dollars
      student_course on student_course.student_id=students.id
      join
      courses on student_course.course_id=courses.id
+     group by student_name;
 
      Q. Total Fees by each student
 
@@ -571,6 +576,7 @@ Q.  Salary in Dollars
      student_course on student_course.student_id=students.id
      join
      courses on student_course.course_id=courses.id
+     group by student_name;
 
 
 # Views to Create Virtual Table
@@ -727,3 +733,7 @@ Q.  Salary in Dollars
 
 
 # Left commands: Rollback, Truncate, Count(*)
+
+# Questions:
+
+1. "Find the departments that have more than 1 employee whose salary is greater than 40,000."
