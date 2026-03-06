@@ -85,7 +85,10 @@ Note: system cls: For clearing the cmd
      values("Raju"),("Shyam");
 
 # Alias
-    select acc_no As 'Account No.', name As         'Customer Name' from customers5;
+    select acc_no As 'Account No.', name As      
+       'Customer Name' from customers5;
+
+    -> Note: Aliasing must be before table name if we are aliasing a column
 
 # String Functions
     - Concat
@@ -194,7 +197,7 @@ Q. For getting the maximum salary employee
         select desig, count(name) from employees group by desig;
 
     Note: 1. Group by should contain column from select list(Only aggregate function will run)
-          2.Not necessary that it will have aggregate functions always  
+          2. Not necessary that it will have aggregate functions always  
 
 # Aggregate Functions:
 
@@ -733,6 +736,48 @@ Q.  Salary in Dollars
 
 
 # Left commands: Rollback, Truncate, Count(*)
+
+# Rollback: It is used to undo the changes made in the current transaction. It restores the database to the last committed state.
+    - It works for:
+    i. Insert
+    ii. Update
+    iii. Delete
+
+    - Syntax:
+    use store_db;
+
+    select * from customers4;
+
+    commit;
+
+    update customers4 set acc_type="Current"
+    where acc_no=1001;
+
+    rollback;
+
+    The commands before update will not be rollback only the after commit commands will be rollback
+    Commit means permanent save
+
+
+
+# IMP: Where and Having in a same query
+
+    SELECT dept, COUNT(*)
+    FROM employees
+    WHERE salary > 40000
+    GROUP BY dept
+    HAVING COUNT(*) > 2;
+
+# Truncate: Only removes the data and not the table
+
+    Truncate table employees;
+
+    or same command like truncate will be
+
+    Delete from employees;
+
+    -> Slower than truncate
+    -> Not Auto Resets auto increment
 
 # Questions:
 
