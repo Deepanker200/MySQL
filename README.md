@@ -782,3 +782,30 @@ Q.  Salary in Dollars
 # Questions:
 
 1. "Find the departments that have more than 1 employee whose salary is greater than 40,000."
+
+# Notes: 
+   - 1. Only columns or LIMIT offsets may use numeric positions.
+   - 2. Most DDL commands are not rollback
+   - 3. Temporal data types in MySQL are used to store date and time values.
+   - 4. MySQL Triggers: It is used before, after insertion etc. It can be used to store data in lowercase or uppercase etc.
+   - 5. Character Set: Storing data in which language using utf
+   - 6. Blob: It is used to store binary data like images, audio, pdfs etc.
+   - 7. Text: It is used to store large data like article, comments, blogs etc.
+   - 8. Difference between LENGTH() and CHAR_LENGTH()
+        Function	    What it counts
+        LENGTH()	    Number of bytes
+        CHAR_LENGTH()	Number of characters
+
+        Ex:
+        SELECT LENGTH('ñ'), CHAR_LENGTH('ñ');
+        2   1
+
+    - 9. RegExp in MySQL
+         Used to match a column value against a regular expression (pattern). It allows advance pattern searching then "Like"
+         Used for Mobile numbers, Pattern like ^[ABC] name starts with A,B,C
+
+         Syntax:
+         WHERE name REGEXP '^A';    //Name starting with A
+         WHERE name REGEXP 'n$';    // Name ending with n
+
+         WHERE mob REGEXP '^[0-9]{10}$';        // Mobile number with exactly 10 digits
